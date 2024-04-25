@@ -64,5 +64,8 @@ def contact(request):
 def login(request):
     return HttpResponse("Авторизація")
 
+def show_category(request, cat_id):
+    return index(request)
+
 def page_not_found(request, exception):
     return HttpResponseNotFound("<h1> Сторінка не знайдена</h1>")
