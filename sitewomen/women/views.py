@@ -4,7 +4,7 @@ from django.urls import reverse
 from django.template.loader import render_to_string
 from django.template.defaultfilters import slugify
 
-from .models import Women, Category
+from .models import Women, Category, TagPost
 
 menu = [{'title': "Про сайт", 'url_name': 'about'},
         {'title': "Добавити статтю", 'url_name': 'add_page'},
@@ -51,7 +51,7 @@ def show_post(request, post_slug):
 
 
 def addpage(request):
-    return HttpResponse("Добавити статтю")
+    return render(request, 'women/add_page.html', {'menu': menu, 'title': 'Добавити статтю'})
 
 
 def contact(request):
@@ -77,3 +77,15 @@ def show_category(request, cat_slug):
 
 def page_not_found(request, exception):
     return HttpResponseNotFound("<h1>Сторінка не знайдена</h1>")
+
+def show_tag_postlist(request, tag_slug):
+    tag = get_object_or_404(TagPost, slug=tag_slug)
+    posts = tag.tags.filter(is_published=Women.Status.PUBLISHED)
+
+    data = {
+        'title': f'Тег: {tag.tag}',
+        'menu': menu,
+        'posts': posts,
+        'cat_selected': None
+    }
+    return render(request, 'women/index.html', context=data)
