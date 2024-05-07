@@ -1,5 +1,6 @@
 from django.db import models
 from django.urls import reverse
+from django.core.validators import MinLengthValidator, MaxLengthValidator
 
 
 class PublishedManager(models.Manager):
@@ -12,7 +13,10 @@ class Women(models.Model):
         DRAFT = 0, 'Чернетка'
         PUBLISHED = 1, 'Опубліковано'
 
-    title = models.CharField(max_length=255)
+    title = models.CharField(max_length=255, validators=[
+        MinLengthValidator(5, message='Мінімум 5 символів'),
+        MaxLengthValidator(100, message='Мінімум 100 символів')
+    ])
     slug = models.SlugField(max_length=255, unique=True, db_index=True)
     content = models.TextField(blank=True)
     time_create = models.DateTimeField(auto_now_add=True)
