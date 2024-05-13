@@ -3,7 +3,7 @@
 {%block content %}
 <h1>{{title}}</h1>
 <!--<form action="">  пуста строка означає, що для обробки цієї форми використовується теперішня функція -->
-    <form action="" method="POST">
+    <form action="" method="POST" enctype="multipart/form-data">
     {% csrf_token %}
     <!--<p><label for="id_1">Текст:</label><input type="text" id="id_1" name="field_text"></p>
     <p><label for="id_2">Відмітка:</label><input type="checkbox" id="id_2" name="field_check"></p>

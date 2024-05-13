@@ -1,7 +1,8 @@
 from django import template
+from django.db.models import Count
+
 import women.views as views
 from women.models import Category, TagPost
-from django.db.models import Count
 
 register = template.Library()
 
